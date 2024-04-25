@@ -38,6 +38,7 @@ public class SOSGame {
                 } else {
                     currentPlayer = (currentPlayer == 'S') ? 'O' : 'S';
                 }
+                System.out.println("Score S: " + scoreS + ", Score O: " + scoreO); // Print scores after each move
                 gameWon = isGameOver();
                 if (gameWon) {
                     System.out.println("Player " + (scoreS > scoreO ? 'S' : 'O') + " wins!");

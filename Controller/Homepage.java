@@ -2,6 +2,7 @@ package Controller;
 
 import Model.SOSGame;
 import Model.XOGame;
+import Model.Actions;
 
 import java.util.Scanner;
 
@@ -13,7 +14,8 @@ public class Homepage {
             System.out.println("Welcome to Pen Paper Games!");
             System.out.println("1. XO Game");
             System.out.println("2. SOS Game");
-            System.out.println("3. Close");
+            System.out.println("3. Guessing Game");
+            System.out.println("4. Exit");
             System.out.print("Enter your choice: ");
             choice = scanner.nextInt();
             switch (choice) {
@@ -29,17 +31,26 @@ public class Homepage {
                     // Call your SOS Game code here
                     System.out.println("Starting SOS Game...");
                     SOSGame sosGame = new SOSGame();
-                    if (!sosGame.start(scanner)) { // pass the Scanner to the start method
-                        choice = 0; // go back to the main menu
+                    if (!sosGame.start(scanner)) { 
+                        choice = 0; 
                     }
                     break;
                 case 3:
+                    System.out.println("Starting Finding Word Game...");
+                    Actions guess = new Actions();
+                    guess.setDetails(10,15);
+                    if (!guess.start(scanner)) {
+                        choice = 0;
+                    }
+                    break;
+                case 4:
                     System.out.println("Closing the application...");
                     break;
+
                 default:
                     System.out.println("Invalid choice. Please choose a valid option.");
             }
-        } while (choice != 3);
+        } while (choice != 4);
         scanner.close();
     }
 }
