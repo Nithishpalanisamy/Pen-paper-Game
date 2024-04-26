@@ -38,7 +38,7 @@ public class Homepage {
                 case 3:
                     System.out.println("Starting Finding Word Game...");
                     Actions guess = new Actions();
-                    guess.setDetails(10,15);
+                    guess.setDetails(5,10);
                     if (!guess.start(scanner)) {
                         choice = 0;
                     }
