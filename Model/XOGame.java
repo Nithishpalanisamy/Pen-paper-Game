@@ -16,8 +16,7 @@ public class XOGame {
     }
 
     public boolean start(Scanner scanner) { // start game with given scanner for input
-        int move = -1;
-        boolean validInput;
+        int move;
         do {
             System.out.println(this); // print the current board
             validInput = false;
@@ -44,18 +43,7 @@ public class XOGame {
         } while (!isGameOver()); // continue until the game is over
         
         System.out.println("Game over! Would you like to play again? (1-yes/2-no)");
-        int playAgain = -1;
-
-        try {
-            playAgain = scanner.nextInt();
-        } catch (InputMismatchException e) {
-            System.out.println("Invalid input. Ending game.");
-            return false;
-        } catch (Exception e) {
-            System.out.println("An unexpected error occurred.");
-            return false;
-        }
-        
+        int playAgain = scanner.nextInt();
         return playAgain == 1; // return whether to play again
     }
 

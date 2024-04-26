@@ -11,7 +11,7 @@ public class Actions {
         this.lowerBound = lowerBound;
         this.upperBound = upperBound;
     }
-
+        //generate random number
     public int generate() {
         int randomNumber = new Random().nextInt((upperBound - lowerBound) + 1) + lowerBound;
         return randomNumber;
@@ -20,14 +20,12 @@ public class Actions {
     public boolean start(Scanner scanner) {
         System.out.print("Enter a number: ");
 
-        // take user input
         int userInputedNumber = scanner.nextInt();
-        // if user inputed number less then of lowerBound or more then of upperBound
         if (userInputedNumber < this.lowerBound || userInputedNumber > this.upperBound) {
             System.out.println("Enter the valid number");
             return playAgain(scanner);
         } else {
-            int generatedNumber = generate(); // generate random number
+            int generatedNumber = generate();
 
             if (userInputedNumber == generatedNumber) {
                 System.out.println("Congratulation!");
@@ -38,10 +36,20 @@ public class Actions {
             }
         }
     }
-
-    public boolean playAgain(Scanner scanner) {
-        System.out.println("Game over! Do you want to play again? (1-yes/2-no)");
-        int playAgain = scanner.nextInt();
-        return playAgain == 1;
-    }
+        //ask play again
+        public boolean playAgain(Scanner scanner) {
+            System.out.println("Game over! Do you want to play again? (1-yes/0-no)");
+            int playAgain = scanner.nextInt();
+            if (playAgain == 1) {
+                // Restart the game
+                return start(scanner);
+            } else if (playAgain == 0) {
+                // Go back to the menu
+                return false;
+            } else {
+                System.out.println("Invalid input. Please enter 1 for yes or 0 for no.");
+                return playAgain(scanner);
+            }
+        }
+        
 }
