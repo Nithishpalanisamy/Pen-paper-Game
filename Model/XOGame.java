@@ -42,7 +42,7 @@ public class XOGame {
                 }
             }
         } while (!isGameOver()); // continue until the game is over
-        
+        System.out.println(this);
         System.out.println("Game over! Would you like to play again? (1-yes/2-no)");
         int playAgain = -1;
 
@@ -64,6 +64,7 @@ public class XOGame {
     }
 
     private boolean isGameOver() {
+        
         return checkRows() || checkColumns() || checkDiagonals(); // check for win or tie
     }
 
@@ -113,3 +114,4 @@ public class XOGame {
         return sb.toString(); // return the current board state as a string
     }
 }
+//if we print current object the string method will be called.
