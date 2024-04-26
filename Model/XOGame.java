@@ -1,5 +1,6 @@
 package Model;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class XOGame {
@@ -15,28 +16,46 @@ public class XOGame {
     }
 
     public boolean start(Scanner scanner) { // start game with given scanner for input
-        int move;
+        int move = -1;
+        boolean validInput;
         do {
             System.out.println(this); // print the current board
-            System.out.print("Player " + currentPlayer + ", enter your move (1-9): ");
+            validInput = false;
             
-            // Ensure the input is a valid integer
-            while (!scanner.hasNextInt()) {
-                System.out.println("That's not a number! Please enter a valid move (1-9):");
-                scanner.next(); // discard invalid input
-            }
-            
-            move = scanner.nextInt() - 1; // map 1-9 to 0-8
-            if (isValidMove(move)) { // check if the move is valid
-                board[move] = currentPlayer; // make the move
-                currentPlayer = (currentPlayer == 'X') ? 'O' : 'X'; // switch players
-            } else {
-                System.out.println("Invalid move. Try again.");
+            while (!validInput) {
+                try {
+                    System.out.print("Player " + currentPlayer + ", enter your move (1-9): ");
+                    move = scanner.nextInt() - 1; // map 1-9 to 0-8
+                    
+                    if (isValidMove(move)) { // check if the move is valid
+                        board[move] = currentPlayer; // make the move
+                        currentPlayer = (currentPlayer == 'X') ? 'O' : 'X'; // switch players
+                        validInput = true; // the move was valid
+                    } else {
+                        System.out.println("Invalid move. Try again.");
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("That's not a valid number! Please enter a valid move (1-9).");
+                    scanner.next(); // discard the invalid input
+                } catch (Exception e) {
+                    System.out.println("An error occurred. Please try again.");
+                }
             }
         } while (!isGameOver()); // continue until the game is over
         
         System.out.println("Game over! Would you like to play again? (1-yes/2-no)");
-        int playAgain = scanner.nextInt();
+        int playAgain = -1;
+
+        try {
+            playAgain = scanner.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Ending game.");
+            return false;
+        } catch (Exception e) {
+            System.out.println("An unexpected error occurred.");
+            return false;
+        }
+        
         return playAgain == 1; // return whether to play again
     }
 
