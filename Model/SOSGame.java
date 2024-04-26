@@ -1,5 +1,6 @@
 package Model;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class SOSGame {
@@ -20,13 +21,19 @@ public class SOSGame {
     }
 
     public boolean start(Scanner scanner) {
-        int row, col;
+        int row = -1, col = -1;
         boolean gameWon = false;
         do {
             System.out.println(this);
             System.out.print("Player " + currentPlayer + ", enter your move (row col): ");
-            row = scanner.nextInt();
-            col = scanner.nextInt();
+            try {
+                row = scanner.nextInt();
+                col = scanner.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter integers.");
+                scanner.next(); // discard the invalid input
+                continue;
+            }
             if (isValidMove(row, col)) {
                 board[row][col] = currentPlayer;
                 if (checkForSOS(row, col)) {
@@ -47,11 +54,34 @@ public class SOSGame {
                 System.out.println("Invalid move. Try again.");
             }
         } while (!gameWon);
+        
         System.out.println("Game over! Do you want to play again? (1-yes/2-no)");
-        int playAgain = scanner.nextInt();
-        return playAgain == 1;
+        int playAgain = -1;
+        try {
+            playAgain = scanner.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please enter 1 for yes or 2 for no.");
+            scanner.next(); // discard the invalid input
+        }
+        if (playAgain == 1) {
+            // Reset the game
+            board = new char[5][5];
+            currentPlayer = 'S';
+            scoreS = 0;
+            scoreO = 0;
+            for (int i = 0; i < 5; i++) {
+                for (int j = 0; j < 5; j++) {
+                    board[i][j] = '-';
+                }
+            }
+            // Restart the game
+            return start(scanner);
+        } else {
+            // Go back to the menu
+            return false;
+        }
     }
-
+    
     private boolean isValidMove(int row, int col) {
         return row >= 0 && row < 5 && col >= 0 && col < 5 && board[row][col] == '-';
     }

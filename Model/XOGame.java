@@ -16,6 +16,7 @@ public class XOGame {
 
     public boolean start(Scanner scanner) { // start game with given scanner for input
         int move;
+        boolean playAgain;
         do {
             System.out.println(this); // print the current board
             System.out.print("Player " + currentPlayer + ", enter your move (1-9): ");
@@ -33,12 +34,26 @@ public class XOGame {
             } else {
                 System.out.println("Invalid move. Try again.");
             }
-        } while (!isGameOver()); // continue until the game is over
+            
+            if (isGameOver()) { // check if the game is over
+                System.out.println("Game over! Would you like to play again? (1-yes/0-no)");
+                playAgain = scanner.nextInt() == 1; // get user's choice to play again
+                if (playAgain) {
+                    // Reset the game
+                    board = new char[9];
+                    currentPlayer = 'X';
+                    for (int i = 0; i < board.length; i++) {
+                        board[i] = '-'; // initialize the board with empty cells
+                    }
+                }
+            } else {
+                playAgain = true; // continue the current game if it's not over
+            }
+        } while (playAgain); // continue until the user chooses not to play again
         
-        System.out.println("Game over! Would you like to play again? (1-yes/2-no)");
-        int playAgain = scanner.nextInt();
-        return playAgain == 1; // return whether to play again
+        return false; // return to the menu
     }
+    
 
     private boolean isValidMove(int move) {
         return move >= 0 && move < 9 && board[move] == '-'; // move must be within range and on an empty cell
