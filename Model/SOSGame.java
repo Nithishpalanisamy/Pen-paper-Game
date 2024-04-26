@@ -61,7 +61,7 @@ public class SOSGame {
             playAgain = scanner.nextInt();
         } catch (InputMismatchException e) {
             System.out.println("Invalid input. Please enter 1 for yes or 2 for no.");
-            scanner.next(); // discard the invalid input
+            scanner.next(); 
         }
         if (playAgain == 1) {
             // Reset the game
