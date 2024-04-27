@@ -20,7 +20,7 @@ public class Homepage {
             choice = scanner.nextInt();
             switch (choice) {
                 case 1:
-                     // Call XO Game code 
+                     // Call XO Game code here
                      System.out.println("Starting XO Game...");
                      XOGame xoGame = new XOGame();
                      if (!xoGame.start(scanner)) {
@@ -28,7 +28,7 @@ public class Homepage {
                      }
                      break;
                 case 2:
-                    // Call  SOS Game code 
+                    // Call your SOS Game code here
                     System.out.println("Starting SOS Game...");
                     SOSGame sosGame = new SOSGame();
                     if (!sosGame.start(scanner)) { 
@@ -36,10 +36,9 @@ public class Homepage {
                     }
                     break;
                 case 3:
-                //call Guessing game code
                     System.out.println("Starting Finding Word Game...");
                     Actions guess = new Actions();
-                    guess.setDetails(10,12);
+                    guess.setDetails(5,10);
                     if (!guess.start(scanner)) {
                         choice = 0;
                     }
