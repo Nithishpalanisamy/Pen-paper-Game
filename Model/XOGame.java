@@ -7,24 +7,24 @@ public class XOGame {
     private char currentPlayer;
 
     public XOGame() {
-        board = new char[9]; // 3x3 board represented as a 1D array
-        currentPlayer = 'X'; // 'X' starts the game
+        board = new char[9]; 
+        currentPlayer = 'X'; 
         for (int i = 0; i < board.length; i++) {
-            board[i] = '-'; // initialize the board with empty cells
+            board[i] = '-'; 
         }
     }
 
-    public boolean start(Scanner scanner) { // start game with given scanner for input
+    public boolean start(Scanner scanner) {
         int move;
         boolean playAgain;
         do {
-            System.out.println(this); // print the current board
+            System.out.println(this); 
             System.out.print("Player " + currentPlayer + ", enter your move (1-9): ");
             
-            // Ensure the input is a valid integer
+            
             while (!scanner.hasNextInt()) {
                 System.out.println("That's not a number! Please enter a valid move (1-9):");
-                scanner.next(); // discard invalid input
+                scanner.next();
             }
             
             move = scanner.nextInt() - 1; // map 1-9 to 0-8
